@@ -113,14 +113,15 @@ function destroy (req, res){
     
     const {id} = req.params
 
-    connection.query('DELETE FROM posts WHERE id ?', [id], (err)=>{
+    connection.query('DELETE FROM posts WHERE id = ?', [id], (err)=>{
         if (err) return res.status (500).json({
             error: 'Errore nel cancellare un post'
 
         })
+
         res.sendStatus(204)
     })
-
+    
 }
 
 
