@@ -6,3 +6,10 @@ const connection = mysql.createConnection({
     password:root,
     database:blog,
 })
+
+connection.connect((err)=>{
+    if (err) throw err
+    console.log('Connesso al Database')
+})
+
+module.exports = connection
