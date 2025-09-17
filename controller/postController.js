@@ -111,24 +111,15 @@ function modify (req, res) {
 
 function destroy (req, res){
     
-     const id = parseInt(req.params.id)
-    const finder = posts.find(item=> item.id === id)
+    const {id} = req.params
 
-    if(!finder) {
+    connection.query('DELETE FROM posts WHERE id ?', [id], (err)=>{
+        if (err) return res.status (500).json({
+            error: 'Errore nel cancellare un post'
 
-    res.status(404)
-
-        return res.json({
-        erro: 'Non trovato',
-        message: 'Post non trovato'
         })
-    }
-
-    posts.splice(posts.indexOf(posts), 1)
-
-    console.log(posts)
-
-    res.sendStatus(204)
+        res.sendStatus(204)
+    })
 
 }
 
