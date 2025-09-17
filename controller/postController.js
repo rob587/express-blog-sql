@@ -22,20 +22,15 @@ function index (req, res){
 
 
 function show (req, res){
-    const id = parseInt(req.params.id)
-    const finder = posts.find(item=> item.id === id)
+    
+    const {id} = req.params
 
-    if(!finder) {
-
-        res.status(404)
-
-        return res.json({
-            erro: 'Non trovato',
-            message: 'Post non trovato'
-        })
-    }
-
-    res.send(finder)
+    const sql = 'SELECT * FROM posts WHERE ID = ?'
+    connection.query(sql, [id], (err, results)=>{
+        if (err) return res.status(500).json ({error: 'Query del database fallita'})
+        if (results.length === 0) return res.status(404).json ({error: 'Post non trovato'})
+        res.json(results[0])    
+    })
 }
 
 function store (req, res){
