@@ -1,6 +1,7 @@
 const menu = require('../routers/postRouter.js')
 const posts = require('../data/posts.js')
 const connection = require ('../data/db.js')
+const { json } = require('express')
 
 
  
@@ -8,6 +9,11 @@ function index (req, res){
     const tag = req.query.tag
 
     const sql = 'SELECT * FROM posts'
+
+    connection.query(sql, (err, results)=>{
+        if (err) return res.status(500).json({error: 'query del database fallito'})
+            res.json(results)
+    })
 
 
     
