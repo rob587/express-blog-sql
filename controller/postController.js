@@ -1,25 +1,16 @@
 const menu = require('../routers/postRouter.js')
 const posts = require('../data/posts.js')
+const connection = require ('../data/db.js')
 
 
  
 function index (req, res){
     const tag = req.query.tag
 
+    const sql = 'SELECT * FROM posts'
+
+
     
-
-
-    let filteredTags = posts
-
-    if(tag){
-        filteredTags = posts.filter(item =>{
-            const lowerTags = item.tags.map(tag => tag.toLowerCase()).includes(tag.toLowerCase())
-
-            // return lowerTags
-            })
-        }
-
-        res.json(posts)
     }
 
 
